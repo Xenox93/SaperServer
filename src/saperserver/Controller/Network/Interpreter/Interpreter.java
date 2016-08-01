@@ -1,5 +1,7 @@
 package saperserver.Controller.Network.Interpreter;
 
+import saperserver.Controller.Network.Request;
+
 /**
  * @author Damian
  */
@@ -9,8 +11,23 @@ public abstract class Interpreter
     
     //==========================================================================
     
-    public void exec( final String command )
-    {
+    public Interpreter() {
+    }
+    public Interpreter( Interpreter interpreter ) {
+        
+        event = interpreter.getEvent();
+    }
+    
+    //==========================================================================
+    
+    public Event getEvent() {
+        
+        return event;
+    }
+    
+    //==========================================================================
+    
+    public void exec( final Request command ) {
         event.handle( command );
     }
 }

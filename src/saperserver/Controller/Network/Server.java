@@ -2,12 +2,10 @@ package saperserver.Controller.Network;
 
 import java.io.IOException;
 
-import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.Socket;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Damian
@@ -15,12 +13,11 @@ import java.util.Map;
 public class Server
 {
     private ServerSocket serverSocket;
-    private final Map< InetAddress, Client > clients = new HashMap<>();
+    private final List< Client > clients = new ArrayList<>();
     
     //==========================================================================
     
-    public Server( int port )
-    {
+    public Server( int port ) {
         try
         {
             serverSocket = new ServerSocket( port );
@@ -35,15 +32,13 @@ public class Server
     
     //==========================================================================
     
-    public void disconnect()
-    {
+    private void disconnect() {
         try
         {
-            for( Map.Entry< InetAddress, Client > c : clients.entrySet() )
-                c.getValue().disconnect();
+            for( Client c : clients )
+                c.disconnect();
             
             clients.clear();
-            
             serverSocket.close();
         }
         catch( IOException e )
@@ -55,39 +50,20 @@ public class Server
         return serverSocket.isClosed();
     }
     
-    //--------------------------------------------------------------------------
-            
-    public void sendMsg( InetAddress address, String msg )
-    {
-        try
-        {
-            if( clients.containsKey( address ) )
-                clients.get( address ).sendMsg( msg );
-        }
-        catch( NullPointerException e )
-        {
-            e.getStackTrace();
-            disconnect();
-        }
-    }
-    
     //==========================================================================
     
-    public void wait4Clients() {
+    private void wait4Clients() {
         
         Thread thread = new Thread() {
             
             @Override
             public void run() {
                 
-                Socket socket;
-        
                 while( true )
                 {
                     try
                     {
-                        socket = serverSocket.accept();
-                        clients.put( socket.getInetAddress(), new Client( socket ) );
+                        clients.add( new Client( serverSocket.accept() ) );
                     }
                     catch( IOException e )
                     {
@@ -95,18 +71,18 @@ public class Server
                         disconnect();
                         interrupt();
                     }
-                    finally {
-                        
-                        // Clean Up from a disconnected clients
-                        for( Map.Entry< InetAddress, Client > client : clients.entrySet() )
-                            if( client.getValue().isDisconnected() )
-                                clients.remove( client.getKey() );
-                        
-                    }
+                    
+                    cleanUpFromDisconnectedClients();
                 }
             }
         };
         
         thread.start();
+    }
+    private void cleanUpFromDisconnectedClients() {
+        
+        for( Client client : clients )
+            if( client.isDisconnected() )
+                clients.remove( client );
     }
 }
