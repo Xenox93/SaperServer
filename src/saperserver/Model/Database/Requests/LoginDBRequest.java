@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import saperserver.Model.Account;
 import saperserver.Model.Database.*;
 
-public class LoginRequest extends Request {
+public class LoginDBRequest extends DBRequest {
     
     private Account account;
     
     //==========================================================================
     
-    public LoginRequest( Account account, final String login, final String password ) {
+    public LoginDBRequest( Account account, final String login, final String password ) {
         
         this.account = account;
         
@@ -24,5 +24,6 @@ public class LoginRequest extends Request {
     protected void parseRow( final ResultSet resultset ) throws SQLException {
         
         account.setLogin( resultset.getString( "login" ) );
+        account.setPassword( resultset.getString( "password" ) );
     }
 }

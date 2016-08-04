@@ -2,29 +2,21 @@ package saperserver.Controller.Network;
 
 /**
  * @author Damian
+ * @param <T>
  */
-public class Request {
+public class NetRequest<T> {
     
     protected String service;
-    protected String content;
+    protected T content;
     
     //==========================================================================
     
-    public Request() {
-    }
-    public Request( String request ) {
-        
-        service = request;
-    }
+    public String getService() {
     
-    //==========================================================================
-    
-    public final String getService() {
-        
         return service;
     }
-    public final String getContent() {
-        
+    public T getContent() {
+    
         return content;
     }
     
@@ -33,6 +25,6 @@ public class Request {
     @Override
     public String toString() {
         
-        return service;
+        return new StringBuilder( "service:" ).append( service ).append( ",content:" ).append( content ).toString();
     }
 }

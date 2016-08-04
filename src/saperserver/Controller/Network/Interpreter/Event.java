@@ -1,7 +1,7 @@
 package saperserver.Controller.Network.Interpreter;
 
 import saperserver.Controller.Network.Client;
-import saperserver.Controller.Network.Request;
+import saperserver.Controller.Network.NetRequest;
 
 /**
  * @author Damian
@@ -33,7 +33,7 @@ public abstract class Event
     
     //==========================================================================
     
-    public void forward( final Request command ) {
+    public void forward( final NetRequest command ) throws Exception {
         
         if( event != null )
             event.handle( command );
@@ -41,5 +41,5 @@ public abstract class Event
     
     //==========================================================================
     
-    public abstract void handle( final Request command );
+    public abstract void handle( final NetRequest command ) throws Exception;
 }

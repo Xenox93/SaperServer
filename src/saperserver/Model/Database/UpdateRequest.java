@@ -7,7 +7,7 @@ import java.sql.Statement;
 /**
  * @author Damian
  */
-public class UpdateRequest extends Request {
+public class UpdateRequest extends DBRequest {
     
     @Override
     public void exec( final Statement s ) throws SQLException {

@@ -7,7 +7,7 @@ import java.sql.Statement;
 /**
  * @author Damian
  */
-public abstract class Request {
+public abstract class DBRequest {
     
     private String query;
     

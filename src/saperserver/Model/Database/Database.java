@@ -17,7 +17,7 @@ public class Database {
     
     //==========================================================================
     
-    public void request( final Request request ) throws SQLException {
+    public void request( final DBRequest request ) throws SQLException {
         
         final Connection db = connect();
         

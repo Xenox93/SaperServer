@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Damian
@@ -70,6 +72,10 @@ public class Server
                         e.getStackTrace();
                         disconnect();
                         interrupt();
+                        
+                    } catch( Exception e ) {
+                        
+                        e.getStackTrace();
                     }
                     
                     cleanUpFromDisconnectedClients();
