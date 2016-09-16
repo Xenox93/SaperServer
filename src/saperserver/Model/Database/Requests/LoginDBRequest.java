@@ -12,18 +12,20 @@ public class LoginDBRequest extends DBRequest {
     
     //==========================================================================
     
-    public LoginDBRequest( Account account, final String login, final String password ) {
+    public LoginDBRequest( Account account ) {
         
         this.account = account;
         
         StringBuilder sb = new StringBuilder();
-        setQuery( sb.append( "SELECT login FROM Account WHERE login='" ).append( login ).append( "' AND password='" ).append( password ).toString() );
+        setQuery( sb.append( "SELECT login, password FROM Account WHERE login='" ).append( account.getLogin() ).append( "' AND password='" ).append( account.getPassword() ).append( "'").toString() );
     }
 
     @Override
     protected void parseRow( final ResultSet resultset ) throws SQLException {
         
-        account.setLogin( resultset.getString( "login" ) );
-        account.setPassword( resultset.getString( "password" ) );
+        if( !account.getLogin().equals( resultset.getString( "login" ) ) || !account.getPassword().equals( resultset.getString( "password" ) ) ) 
+            account.setError( "IncorrectLoginDataException" );
+        else
+            account.setPassword( "" );
     }
 }
