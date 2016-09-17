@@ -16,14 +16,4 @@ public class SaperServer {
         
         new Server( SERVER_PORT );
     }
-}
-/*setQuery( "CREATE TABLE Ranking (" + 
-                  " id UNSIGNED INT AUTO_INCREMENT PRIMARY KEY," +
-                  " login TEXT UNIQUE NOT NULL references Account(login)," +
-                  " amount_of_games UNSIGNED INT DEFAULT '0'," +
-                  " amount_of_winnings UNSIGNED INT DEFAULT '0'" +
-                  " )" );*/
-        //setQuery( "drop table Account" );
-        //setQuery( "ALTER TABLE Account ALTER COLUMN ID UNSIGNED INT AUTO_INCREMENT PRIMARY KEY UNIQUE NULL" );
-        
-        
+}       

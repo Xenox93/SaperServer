@@ -31,6 +31,8 @@ public class ResultEvent extends Event
         
         if( command.getHeader().equals( "ranking" ) ) {
             
+            System.out.println( "Ranking" );
+            
             Ranking ranking = new Ranking();
             
             // Get results from Database !!!

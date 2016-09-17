@@ -138,7 +138,7 @@ public class Client {
         String service = obj.getString( "header" );
         String content = obj.getString( "data" );
           
-        if( service.isEmpty() || content.isEmpty() )
+        if( service.isEmpty() )
             throw new BlankCommandException();
         
         return new NetRequest( service, content );

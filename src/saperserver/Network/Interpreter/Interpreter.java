@@ -1,10 +1,8 @@
 package saperserver.Network.Interpreter;
 
-import saperserver.Network.Client;
-import saperserver.Network.Interpreter.Events.LoginEvent;
-import saperserver.Network.Interpreter.Events.RegisterEvent;
-import saperserver.Network.Interpreter.Events.ResultEvent;
+import saperserver.Network.Interpreter.Events.*;
 import saperserver.Network.NetRequest;
+import saperserver.Network.Client;
 
 /**
  * @author Damian
@@ -19,7 +17,7 @@ public class Interpreter
         
         event = new LoginEvent( client );
         
-        event.add( new RegisterEvent( client ) ).add( new ResultEvent( client ) );
+        event.add( new RegisterEvent( client ) ).add( new ResultEvent( client ) ).add( new PrepareBoardEvent( client ) ).add( new CheckFieldEvent( client ) );
     }
     
     //==========================================================================

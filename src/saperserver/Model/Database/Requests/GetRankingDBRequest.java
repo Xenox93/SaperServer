@@ -2,6 +2,7 @@ package saperserver.Model.Database.Requests;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import saperserver.Model.Database.DBRequest;
 import saperserver.Model.Ranking;
 
