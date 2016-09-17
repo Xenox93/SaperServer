@@ -1,7 +1,9 @@
 package saperserver;
 
+import saperserver.Model.Account;
+
 import saperserver.Model.Database.Database;
-import saperserver.Model.Database.Requests.RegisterRequest;
+import saperserver.Model.Database.Requests.LoginDBRequest;
 import saperserver.Network.Server;
 
 public class SaperServer {
@@ -13,7 +15,8 @@ public class SaperServer {
     
     public static void main( String[] args ) throws Exception {
         
-        //Database.request( new RegisterRequest( "xenox93", "xenox93" ) );
+        //Database.request( new LoginDBRequest( new Account() ) );
+        //Database.request( new RegisterDBRequest( new Account() ) );
         
         new Server( SERVER_PORT );
     }

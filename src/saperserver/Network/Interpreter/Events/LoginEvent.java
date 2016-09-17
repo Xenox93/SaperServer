@@ -38,6 +38,8 @@ public class LoginEvent extends Event
             if( !account.getPassword().equals( "" ) )
                 account.setError( "IncorrectLoginDataException" );
             
+            account.setPassword( "" );
+            
             client.sendMsg( new NetRequest( "login", new Gson().toJson( account, Account.class ) ) );
         }
         else

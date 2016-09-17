@@ -14,6 +14,8 @@ public class LoginDBRequest extends DBRequest {
     
     public LoginDBRequest( Account account ) {
         
+        //setQuery( "SELECT * FROM Account" );
+        
         this.account = account;
         
         StringBuilder sb = new StringBuilder();
@@ -27,5 +29,8 @@ public class LoginDBRequest extends DBRequest {
             account.setError( "IncorrectLoginDataException" );
         else
             account.setPassword( "" );
+        
+        /*while( resultset.next() )
+            System.out.println( resultset.getString( "login" ) + " " + resultset.getString( "password" ) );*/
     }
 }

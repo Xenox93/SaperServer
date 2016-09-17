@@ -1,8 +1,5 @@
 package saperserver.Model;
 
-import saperserver.Exceptions.IncorrectLoginDataException;
-
-
 /**
  * @author Damian
  */
@@ -47,21 +44,5 @@ public class Account extends Error {
     }
     public final String getPassword() {
         return password;
-    }
-    
-    //==========================================================================
-
-    /**
-     *
-     * @throws IncorrectLoginDataException
-     */
-    @Override
-    public void checkError() throws IncorrectLoginDataException {
-        
-        if( !isError() )
-            return;
-        
-        if( error.equals( "IncorrectLoginDataException" ) )
-            throw new IncorrectLoginDataException();
     }
 }
