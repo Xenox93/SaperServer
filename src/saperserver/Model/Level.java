@@ -1,4 +1,4 @@
-package Saper.Model;
+package saperserver.Model;
 
 /**
  *

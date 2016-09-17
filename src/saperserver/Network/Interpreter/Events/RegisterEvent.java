@@ -6,6 +6,7 @@ import saperserver.Model.Account;
 
 import saperserver.Model.Database.Database;
 import saperserver.Model.Database.Requests.LoginDBRequest;
+import saperserver.Model.Database.Requests.RankingDBRequest;
 import saperserver.Model.Database.Requests.RegisterDBRequest;
 
 import saperserver.Network.Client;
@@ -58,11 +59,19 @@ public class RegisterEvent extends Event {
                 
                 ex.printStackTrace();
                 output_account.setError( "AccountRegisterFailedException" );
+                output_account.setPassword( "" );
+                
+                client.sendMsg( new NetRequest( "register", new Gson().toJson( output_account, Account.class ) ) );
+                
+                return;
             }
             
             //------------------------------------------------------------------
             
             output_account.setPassword( "" );
+            
+            // INSERT FIRST RECORD TO DATABASE
+            Database.request( new RankingDBRequest( output_account ) );
             
             client.sendMsg( new NetRequest( "register", new Gson().toJson( output_account, Account.class ) ) );
         }
