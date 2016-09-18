@@ -9,6 +9,8 @@ import java.net.Socket;
 import org.json.JSONObject;
 
 import saperserver.Exceptions.BlankCommandException;
+import saperserver.Model.Board;
+import saperserver.Model.Level;
 import saperserver.Network.Interpreter.Interpreter;
 
 /**
@@ -21,7 +23,11 @@ public class Client {
     private ObjectOutputStream out = null;
     private ObjectInputStream in = null;
     
+    //--------------------------------------------------------------------------
+    
     private Interpreter interpreter = null;
+    
+    private final Board board = new Board();
     
     //==========================================================================
 
@@ -81,6 +87,11 @@ public class Client {
     public boolean isDisconnected() {
         
         return (socket != null) ? socket.isClosed() : true;
+    }
+    
+    public final Board getBoard() {
+        
+        return board;
     }
     
     //==========================================================================

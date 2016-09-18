@@ -1,5 +1,10 @@
 package saperserver.Network.Interpreter.Events;
 
+import com.google.gson.Gson;
+import org.json.JSONObject;
+import saperserver.Exceptions.LossException;
+import saperserver.Exceptions.WinException;
+import saperserver.Model.Board;
 import saperserver.Network.Client;
 import saperserver.Network.Interpreter.Event;
 import saperserver.Network.NetRequest;
@@ -24,7 +29,19 @@ public class CheckFieldEvent extends Event
         
         if( command.getHeader().equals( "check_field" ) ) {
             
-            client.sendMsg( new NetRequest( "get_fields", "" ) );
+            JSONObject object = new JSONObject( command.getData() );
+            
+                try {
+                    
+                    client.getBoard().checkField( object.getInt( "row" ), object.getInt( "col" ) );
+                    
+                } catch( LossException ex ) {
+                    client.sendMsg( new NetRequest( "loss", "" ) );
+                } catch( WinException ex ) {
+                    client.sendMsg( new NetRequest( "win", "" ) );
+                }
+            
+            client.sendMsg( new NetRequest( "get_board", new Gson().toJson( client.getBoard(), Board.class ) ) );
         }
         else
             forward( command );
