@@ -29,7 +29,7 @@ public class PrepareBoardEvent extends Event
             
             Level level = new Gson().fromJson( command.getData(), Level.class );
             
-            client.getBoard().createBoard( level );
+                client.getBoard().createBoard( level );
             
             client.sendMsg( new NetRequest( "get_board", new Gson().toJson( client.getBoard(), Board.class ) ) );
         }

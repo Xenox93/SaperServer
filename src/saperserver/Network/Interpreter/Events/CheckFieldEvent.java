@@ -2,9 +2,16 @@ package saperserver.Network.Interpreter.Events;
 
 import com.google.gson.Gson;
 import org.json.JSONObject;
+
 import saperserver.Exceptions.LossException;
 import saperserver.Exceptions.WinException;
+
 import saperserver.Model.Board;
+
+import saperserver.Model.Database.Database;
+import saperserver.Model.Database.Requests.RankingDBRequest;
+import saperserver.Model.Level;
+
 import saperserver.Network.Client;
 import saperserver.Network.Interpreter.Event;
 import saperserver.Network.NetRequest;
@@ -33,15 +40,28 @@ public class CheckFieldEvent extends Event
             
                 try {
                     
-                    client.getBoard().checkField( object.getInt( "row" ), object.getInt( "col" ) );
+                    client.getBoard().checkFields( object.getInt( "row" ), object.getInt( "col" ) );
                     
                 } catch( LossException ex ) {
+                    
                     client.sendMsg( new NetRequest( "loss", "" ) );
+                    client.getBoard().createBoard( new Level(0,0,0) );
+                    
+                    Database.request( new RankingDBRequest( client.getAccount(), false ) );
+                    
+                    return;
+                    
                 } catch( WinException ex ) {
+                    
                     client.sendMsg( new NetRequest( "win", "" ) );
+                    client.getBoard().createBoard( new Level(0,0,0) );
+                    
+                    Database.request( new RankingDBRequest( client.getAccount(), true ) );
+                    
+                    return;
                 }
             
-            client.sendMsg( new NetRequest( "get_board", new Gson().toJson( client.getBoard(), Board.class ) ) );
+            client.sendMsg( new NetRequest( "get_field", new Gson().toJson( client.getBoard(), Board.class ) ) );
         }
         else
             forward( command );

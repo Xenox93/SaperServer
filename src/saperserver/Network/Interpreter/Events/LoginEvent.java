@@ -37,6 +37,8 @@ public class LoginEvent extends Event
             
             if( !account.getPassword().equals( "" ) )
                 account.setError( "IncorrectLoginDataException" );
+            else
+                client.getAccount().setLogin( account.getLogin() );
             
             account.setPassword( "" );
             

@@ -9,8 +9,8 @@ import java.net.Socket;
 import org.json.JSONObject;
 
 import saperserver.Exceptions.BlankCommandException;
+import saperserver.Model.Account;
 import saperserver.Model.Board;
-import saperserver.Model.Level;
 import saperserver.Network.Interpreter.Interpreter;
 
 /**
@@ -28,6 +28,7 @@ public class Client {
     private Interpreter interpreter = null;
     
     private final Board board = new Board();
+    private final Account account = new Account();
     
     //==========================================================================
 
@@ -92,6 +93,10 @@ public class Client {
     public final Board getBoard() {
         
         return board;
+    }
+    public final Account getAccount() {
+        
+        return account;
     }
     
     //==========================================================================
